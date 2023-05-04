@@ -9,8 +9,8 @@ dataSources:
     network: localhost
     source:
       abi: KnowledgeLayerID
-      address: "0xD7D1B2b0A665F03618cb9a45Aa3070f789cb91f2"
-      startBlock: 41128230
+      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+      startBlock: 0
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -36,3 +36,35 @@ dataSources:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: ./src/mappings/knowledgelayer-id.ts
+  - kind: ethereum/contract
+    name: KnowledgeLayerPlatformID
+    network: localhost
+    source:
+      abi: KnowledgeLayerPlatformID
+      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Platform
+      abis:
+        - name: KnowledgeLayerPlatformID
+          file: ./abis/KnowledgeLayerPlatformID.json
+      eventHandlers:
+        - event: CidUpdated(indexed uint256,string)
+          handler: handleCidUpdated
+        - event: Mint(indexed address,uint256,string,uint256)
+          handler: handleMint
+        - event: MintFeeUpdated(uint256)
+          handler: handleMintFeeUpdated
+        - event: OriginFeeUpdated(uint256,uint16)
+          handler: handleOriginFeeUpdated
+        - event: BuyFeeUpdated(uint256,uint16)
+          handler: handleBuyFeeUpdated
+        - event: PostingFeeUpdated(uint256,uint256)
+          handler: handlePostingFeeUpdated
+        - event: SignerUpdated(uint256,address)
+          handler: handleSignerUpdated
+      file: ./src/mappings/knowledgelayer-platform-id.ts
