@@ -1,0 +1,38 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+features:
+  - fullTextSearch
+dataSources:
+  - kind: ethereum/contract
+    name: KnowledgeLayerID
+    network: localhost
+    source:
+      abi: KnowledgeLayerID
+      address: "0xD7D1B2b0A665F03618cb9a45Aa3070f789cb91f2"
+      startBlock: 41128230
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - User
+      abis:
+        - name: KnowledgeLayerID
+          file: ./abis/KnowledgeLayerID.json
+      eventHandlers:
+        - event: Mint(indexed address,uint256,string,uint256,uint256)
+          handler: handleMint
+        - event: CidUpdated(indexed uint256,string)
+          handler: handleCidUpdated
+        - event: MintFeeUpdated(uint256)
+          handler: handleMintFeeUpdated
+        - event: DelegateAdded(uint256,address)
+          handler: handleDelegateAdded
+        - event: DelegateRemoved(uint256,address)
+          handler: handleDelegateRemoved
+        - event: ShortHandlesMaxPriceUpdated(uint256)
+          handler: handleShortHandlesMaxPriceUpdate
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/mappings/knowledgelayer-id.ts
