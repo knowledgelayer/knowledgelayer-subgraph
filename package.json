@@ -1,0 +1,17 @@
+{
+  "name": "knowledgelayer",
+  "license": "MIT",
+  "scripts": {
+    "codegen": "graph codegen",
+    "graphhelp": "graph help",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ knowledgelayer/knowledgelayer",
+    "create-local": "graph create --node http://localhost:8020/ knowledgelayer/knowledgelayer",
+    "remove-local": "graph remove --node http://localhost:8020/ knowledgelayer/knowledgelayer",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 knowledgelayer/knowledgelayer --version-label 0.0.1"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "^0.35.0",
+    "@graphprotocol/graph-ts": "^0.29.0"
+  }
+}
