@@ -1,5 +1,5 @@
 import { BigInt, DataSourceContext, store } from "@graphprotocol/graph-ts";
-import { PlatformData } from "../../generated/templates";
+// import { PlatformData } from "../../generated/templates";
 import { MintFeeUpdated } from "../../generated/KnowledgeLayerID/KnowledgeLayerID";
 import {
   BuyFeeUpdated,
@@ -34,7 +34,7 @@ export function handleCidUpdated(event: CidUpdated): void {
     store.remove("PlatformDescription", oldCid);
   }
 
-  PlatformData.createWithContext(newCid, context);
+  // PlatformData.createWithContext(newCid, context);
 }
 
 export function handleMint(event: Mint): void {
