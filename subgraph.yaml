@@ -53,10 +53,10 @@ dataSources:
         - name: KnowledgeLayerPlatformID
           file: ./abis/KnowledgeLayerPlatformID.json
       eventHandlers:
-        - event: CidUpdated(indexed uint256,string)
-          handler: handleCidUpdated
         - event: Mint(indexed address,uint256,string,uint256)
           handler: handleMint
+        - event: CidUpdated(indexed uint256,string)
+          handler: handleCidUpdated
         - event: MintFeeUpdated(uint256)
           handler: handleMintFeeUpdated
         - event: OriginFeeUpdated(uint256,uint16)
@@ -85,11 +85,34 @@ dataSources:
       abis:
         - name: KnowledgeLayerCourse
           file: ./abis/KnowledgeLayerCourse.json
-        - name: ERC20
-          file: ./abis/ERC20.json
       eventHandlers:
         - event: CourseCreated(indexed uint256,uint256,uint256,uint256,address,string)
           handler: handleCourseCreated
         - event: CourseUpdated(indexed uint256,uint256,address,string)
           handler: handleCourseUpdated
       file: ./src/mappings/knowledgelayer-course.ts
+  - kind: ethereum/contract
+    name: KnowledgeLayerEscrow
+    network: localhost
+    source:
+      abi: KnowledgeLayerEscrow
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Course
+        - FeePayment
+        - FeeClaim
+        - PlatformGain
+      abis:
+        - name: KnowledgeLayerEscrow
+          file: ./abis/KnowledgeLayerEscrow.json
+      eventHandlers:
+        - event: TransactionCreated(uint256,uint256,uint256,address,uint256,uint256,uint16,uint16,uint16)
+          handler: handleTransactionCreated
+        - event: ProtocolFeeUpdated(uint16)
+          handler: handleProtocolFeeUpdated
+      file: ./src/mappings/knowledgelayer-escrow.ts

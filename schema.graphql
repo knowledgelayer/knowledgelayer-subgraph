@@ -8,7 +8,6 @@ type Course @entity {
   price: BigInt
   cid: String
   description: CourseDescription
-  transactions: Transaction @derivedFrom(field: "course")
 }
 
 type CourseDescription @entity(immutable: true) {
