@@ -14,7 +14,7 @@ import {
 } from "../generated/schema";
 import { PROTOCOL_ID, ZERO, ZERO_ADDRESS, ZERO_BIGDEC, ZERO_TOKEN_ADDRESS } from "./constants";
 
-import { ERC20 } from "../generated/TalentLayerEscrow/ERC20";
+import { ERC20 } from "../generated/KnowledgeLayerEscrow/ERC20";
 
 export function getOrCreateUser(id: BigInt): User {
   let user = User.load(id.toString());
