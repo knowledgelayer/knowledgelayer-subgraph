@@ -144,3 +144,18 @@ templates:
         - name: KnowledgeLayerPlatformID
           file: ./abis/KnowledgeLayerPlatformID.json
     network: localhost
+  - name: CourseData
+    kind: file/ipfs
+    mapping:
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/mappings/ipfs-data.ts
+      handler: handleCourseData
+      entities:
+        - CourseDescription
+        - Course
+        - Keyword
+      abis:
+        - name: KnowledgeLayerCourse
+          file: ./abis/KnowledgeLayerCourse.json
+    network: localhost

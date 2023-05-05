@@ -1,5 +1,5 @@
 import { store, DataSourceContext } from "@graphprotocol/graph-ts";
-// import { ServiceData, ProposalData } from "../../generated/templates";
+import { CourseData } from "../../generated/templates";
 import {
   CourseCreated,
   CourseUpdated,
@@ -19,13 +19,13 @@ export function handleCourseCreated(event: CourseCreated): void {
 
   const dataId = event.params.dataUri + "-" + event.block.timestamp.toString();
   course.cid = event.params.dataUri;
-  course.description = dataId;
 
   const context = new DataSourceContext();
   context.setBigInt("courseId", event.params.courseId);
   context.setString("id", dataId);
-  // CourseData.createWithContext(event.params.dataUri, context);
+  CourseData.createWithContext(event.params.dataUri, context);
 
+  course.description = dataId;
   course.save();
 }
 
@@ -37,18 +37,18 @@ export function handleCourseUpdated(event: CourseUpdated): void {
   const oldCid = course.cid;
   const newCid = event.params.dataUri;
   const dataId = newCid + "-" + event.block.timestamp.toString();
-  course.description = dataId;
   course.cid = newCid;
 
   const context = new DataSourceContext();
-  context.setBigInt("serviceId", courseId);
+  context.setBigInt("courseId", courseId);
   context.setString("id", dataId);
 
   if (oldCid) {
-    store.remove("ServiceDescription", oldCid);
+    store.remove("CourseDescription", oldCid);
   }
 
-  // CourseData.createWithContext(newCid, context);
+  CourseData.createWithContext(newCid, context);
 
+  course.description = dataId;
   course.save();
 }
