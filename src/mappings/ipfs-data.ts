@@ -23,7 +23,7 @@ export function handleUserData(content: Bytes): void {
   const userId = context.getBigInt("userId");
   const id = context.getString("id");
 
-  let description = new UserDescription(id);
+  const description = new UserDescription(id);
   description.user = userId.toString();
 
   description.title = getValueAsString(jsonObject, "title");
@@ -52,7 +52,7 @@ export function handlePlatformData(content: Bytes): void {
   const platformId = context.getBigInt("platformId");
   const id = context.getString("id");
 
-  let description = new PlatformDescription(id);
+  const description = new PlatformDescription(id);
 
   description.platform = platformId.toString();
   description.about = getValueAsString(jsonObject, "about");
