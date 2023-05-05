@@ -1,5 +1,5 @@
 import { BigInt, DataSourceContext } from "@graphprotocol/graph-ts";
-// import { UserData } from "../../generated/templates";
+import { UserData } from "../../generated/templates";
 import {
   CidUpdated,
   DelegateAdded,
@@ -19,13 +19,13 @@ export function handleCidUpdated(event: CidUpdated): void {
 
   user.updatedAt = event.block.timestamp;
   user.cid = newCid;
-  user.description = dataId;
 
   const context = new DataSourceContext();
   context.setBigInt("userId", userId);
   context.setString("id", dataId);
-  // UserData.createWithContext(newCid, context);
+  UserData.createWithContext(newCid, context);
 
+  user.description = dataId;
   user.save();
 }
 

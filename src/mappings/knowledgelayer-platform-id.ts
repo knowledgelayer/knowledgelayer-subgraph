@@ -1,5 +1,5 @@
 import { BigInt, DataSourceContext, store } from "@graphprotocol/graph-ts";
-// import { PlatformData } from "../../generated/templates";
+import { PlatformData } from "../../generated/templates";
 import { MintFeeUpdated } from "../../generated/KnowledgeLayerID/KnowledgeLayerID";
 import {
   BuyFeeUpdated,
@@ -19,12 +19,10 @@ export function handleCidUpdated(event: CidUpdated): void {
   const dataId = newCid + "-" + event.block.timestamp.toString();
 
   platform.cid = newCid;
-  platform.description = dataId;
   platform.updatedAt = event.block.timestamp;
   if (!oldCid) {
     platform.createdAt = event.block.timestamp;
   }
-  platform.save();
 
   const context = new DataSourceContext();
   context.setBigInt("platformId", platformId);
@@ -34,7 +32,10 @@ export function handleCidUpdated(event: CidUpdated): void {
     store.remove("PlatformDescription", oldCid);
   }
 
-  // PlatformData.createWithContext(newCid, context);
+  PlatformData.createWithContext(newCid, context);
+
+  platform.description = dataId;
+  platform.save();
 }
 
 export function handleMint(event: Mint): void {
