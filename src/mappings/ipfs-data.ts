@@ -8,7 +8,12 @@ import {
   dataSource,
   log,
 } from "@graphprotocol/graph-ts";
-import { UserDescription, PlatformDescription, CourseDescription } from "../../generated/schema";
+import {
+  UserDescription,
+  PlatformDescription,
+  CourseDescription,
+  Lesson,
+} from "../../generated/schema";
 
 export function handleUserData(content: Bytes): void {
   const checkJson = json.try_fromBytes(content);
@@ -88,6 +93,22 @@ export function handleCourseData(content: Bytes): void {
   // https://github.com/graphprotocol/graph-node/issues/4087
   description.keywords = createKeywordEntities(description.keywords_raw!)!;
 
+  const lessons = getValueAsArray(jsonObject, "lessons");
+
+  if (lessons) {
+    for (let i = 0; i < lessons.length; i++) {
+      const lessonId = courseId.toString() + "-" + i.toString();
+      const lessonData = lessons[i].toObject();
+
+      const lesson = new Lesson(lessonId);
+      lesson.course = id;
+      lesson.title = getValueAsString(lessonData, "title");
+      lesson.about = getValueAsString(lessonData, "about");
+      lesson.videoPlaybackId = getValueAsString(lessonData, "videoPlaybackId");
+      lesson.save();
+    }
+  }
+
   description.save();
 }
 
@@ -111,6 +132,16 @@ function getValueAsBigInt(jsonObject: TypedMap<string, JSONValue>, key: string):
   }
 
   return value.toBigInt();
+}
+
+function getValueAsArray(jsonObject: TypedMap<string, JSONValue>, key: string): JSONValue[] | null {
+  const value = jsonObject.get(key);
+
+  if (value == null || value.isNull() || value.kind != JSONValueKind.ARRAY) {
+    return null;
+  }
+
+  return value.toArray();
 }
 
 //Transforms a comma separated string of keywords into an Array of Keyword.id entities.

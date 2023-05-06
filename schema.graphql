@@ -84,6 +84,16 @@ type CourseDescription @entity(immutable: true) {
   about: String
   keywords: [Keyword!] 
   keywords_raw: String # Lowercase keywords in raw format
+  image_url: String
+  lessons: [Lesson!]! @derivedFrom(field: "course") 
+}
+
+type Lesson @entity(immutable: true) {
+  id: ID! # Lesson id (concatenation of course id and lesson index in the course)
+  course: CourseDescription!
+  title: String
+  about: String
+  videoPlaybackId: String
 }
 
 type Review @entity(immutable: true) {
