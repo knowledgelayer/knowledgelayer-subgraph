@@ -20,8 +20,8 @@ type User @entity {
   rating: BigDecimal! # Average rating from reviews user has received
   reviews: [Review!] @derivedFrom(field: "to")
   numReviews: BigInt! # Number of reviews received by the user
-  createdCourses: [Course!] @derivedFrom(field: "seller") 
-  purchasedCourses: [Course!]
+  createdCourses: [Course!]! @derivedFrom(field: "seller") 
+  purchasedCourses: [Course!]!
   totalGains: [UserGain!] @derivedFrom(field: "user")  # User total gains per token
 }
 

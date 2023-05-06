@@ -1,5 +1,10 @@
 import { Course, User } from "../../generated/schema";
-import { getOrCreateToken, getOrCreateProtocol, getOrCreateTransaction } from "../getters";
+import {
+  getOrCreateToken,
+  getOrCreateProtocol,
+  getOrCreateTransaction,
+  getOrCreateUser,
+} from "../getters";
 import {
   ProtocolFeeUpdated,
   TransactionCreated,
@@ -17,6 +22,10 @@ export function handleTransactionCreated(event: TransactionCreated): void {
   transaction.originFee = event.params.originFee;
   transaction.buyFee = event.params.buyFee;
   transaction.save();
+
+  const user = getOrCreateUser(event.params.senderId);
+  user.purchasedCourses = user.purchasedCourses.concat([event.params.courseId.toString()]);
+  user.save();
 }
 
 export function handleProtocolFeeUpdated(event: ProtocolFeeUpdated): void {

@@ -27,6 +27,7 @@ export function getOrCreateUser(id: BigInt): User {
     user.delegates = [];
     user.rating = ZERO_BIGDEC;
     user.numReviews = ZERO;
+    user.purchasedCourses = [];
     user.save();
   }
   return user;
