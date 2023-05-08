@@ -87,6 +87,7 @@ export function handleCourseData(content: Bytes): void {
   // Non-mandatory (nullable) fields assigned below
   description.title = getValueAsString(jsonObject, "title");
   description.about = getValueAsString(jsonObject, "about");
+  description.image_url = getValueAsString(jsonObject, "image_url");
   description.keywords_raw = getValueAsString(jsonObject, "keywords")!.toLowerCase();
 
   // Creates duplicate values. Open issue
