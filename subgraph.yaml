@@ -115,6 +115,8 @@ dataSources:
           handler: handleTransactionCreated
         - event: ProtocolFeeUpdated(uint16)
           handler: handleProtocolFeeUpdated
+        - event: Payment(uint256,uint8)
+          handler: handlePayment
       file: ./src/mappings/knowledgelayer-escrow.ts
 templates:
   - name: UserData

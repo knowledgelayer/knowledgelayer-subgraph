@@ -3,6 +3,7 @@ import {
   Course,
   FeeClaim,
   FeePayment,
+  Payment,
   Platform,
   PlatformGain,
   Protocol,
@@ -209,4 +210,13 @@ export function getOrCreateProtocol(): Protocol {
     protocol.shortHandlesMaxPrice = ZERO;
   }
   return protocol;
+}
+
+export function getOrCreatePayment(paymentId: string): Payment {
+  let payment = Payment.load(paymentId);
+  if (!payment) {
+    payment = new Payment(paymentId.toString());
+    payment.paymentType = "";
+  }
+  return payment;
 }

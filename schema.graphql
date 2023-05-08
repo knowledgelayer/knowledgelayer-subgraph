@@ -122,6 +122,15 @@ type Transaction @entity {
   protocolFee: Int! # Fee paid to the protocol
   originFee: Int! # Fee paid to the platform where the course was created
   buyFee: Int! # Fee paid to the platform where the course was being bought
+  payment: Payment @derivedFrom(field: "transaction")
+}
+
+type Payment @entity(immutable: true) {
+  id: ID!
+  createdAt: BigInt
+  paymentType: String
+  transactionHash: String # Transaction hash of the transfer
+  transaction: Transaction! # transaction entity
 }
 
 enum FeeType {
