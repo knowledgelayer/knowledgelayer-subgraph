@@ -88,11 +88,12 @@ export function handleCourseData(content: Bytes): void {
   description.title = getValueAsString(jsonObject, "title");
   description.about = getValueAsString(jsonObject, "about");
   description.image_url = getValueAsString(jsonObject, "image_url");
-  description.keywords_raw = getValueAsArray(jsonObject, "keywords")?.join(",") || "";
+  description.keywords_raw = "";
 
   // Creates duplicate values. Open issue
   // https://github.com/graphprotocol/graph-node/issues/4087
-  description.keywords = createKeywordEntities(description.keywords_raw!)!;
+  // description.keywords = createKeywordEntities(description.keywords_raw!)!;
+  description.keywords = [];
 
   const lessons = getValueAsArray(jsonObject, "lessons");
 
