@@ -82,8 +82,9 @@ type CourseDescription @entity(immutable: true) {
   course: Course!
   title: String
   about: String
-  keywords: [Keyword!] 
-  keywords_raw: String # Lowercase keywords in raw format
+  # keywords: [Keyword!] 
+  keywords: [String!] 
+  keywords_raw: String # Lowercase keywords in raw format, separated by comma
   image_url: String
   lessons: [Lesson!]! @derivedFrom(field: "course") 
 }
