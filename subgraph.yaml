@@ -118,6 +118,27 @@ dataSources:
         - event: Payment(uint256,uint8)
           handler: handlePayment
       file: ./src/mappings/knowledgelayer-escrow.ts
+  - kind: ethereum/contract
+    name: KnowledgeLayerReview
+    network: mumbai
+    source:
+      abi: KnowledgeLayerReview
+      startBlock: 0
+      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Review
+      abis:
+        - name: KnowledgeLayerReview
+          file: ./abis/KnowledgeLayerReview.json
+      eventHandlers:
+        - event: Mint(indexed uint256,indexed uint256,indexed
+            uint256,uint256,uint256,string)
+          handler: handleMint
+      file: ./src/mappings/knowledgelayer-review.ts
 templates:
   - name: UserData
     kind: file/ipfs
@@ -162,3 +183,16 @@ templates:
         - name: KnowledgeLayerCourse
           file: ./abis/KnowledgeLayerCourse.json
     network: mumbai
+  - name: ReviewData
+    kind: file/ipfs
+    mapping:
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/mappings/ipfs-data.ts
+      handler: handleReviewData
+      entities:
+        - ReviewDescription
+      abis:
+        - name: KnowledgeLayerReview
+          file: ./abis/KnowledgeLayerReview.json
+    network: localhost

@@ -13,6 +13,7 @@ import {
   PlatformDescription,
   CourseDescription,
   Lesson,
+  ReviewDescription,
 } from "../../generated/schema";
 
 export function handleUserData(content: Bytes): void {
@@ -121,6 +122,26 @@ export function handleCourseData(content: Bytes): void {
   description.save();
 }
 
+export function handleReviewData(content: Bytes): void {
+  const checkJson = json.try_fromBytes(content);
+  const jsonObject = checkJson.isOk ? checkJson.value.toObject() : null;
+
+  if (jsonObject === null) {
+    log.warning("Error parsing json: {}", [dataSource.stringParam()]);
+    return;
+  }
+
+  const context = dataSource.context();
+  const reviewId = context.getString("reviewId");
+  const id = context.getString("id");
+
+  let description = new ReviewDescription(id);
+  description.review = reviewId;
+  description.content = getValueAsString(jsonObject, "content");
+
+  description.save();
+}
+
 //==================================== Help functions ===========================================
 
 function getValueAsString(jsonObject: TypedMap<string, JSONValue>, key: string): string | null {
@@ -153,16 +174,16 @@ function getValueAsArray(jsonObject: TypedMap<string, JSONValue>, key: string): 
   return value.toArray();
 }
 
-//Transforms a comma separated string of keywords into an Array of Keyword.id entities.
+// Transforms a comma separated string of keywords into an Array of Keyword.id entities.
 function createKeywordEntities(keywords: string): string[] | null {
   const _keywords = keywords.split(",");
 
-  //To avoid returning an empty list, which is not allowed according to the schema.
+  // To avoid returning an empty list, which is not allowed according to the schema.
   if (_keywords.length == 0) {
     return null;
   }
 
-  //Initialize an array with length of number of keywords
+  // Initialize an array with length of number of keywords
   let keywordArray: string[] = [];
 
   // Create keyword entities and add to array

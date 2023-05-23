@@ -102,6 +102,7 @@ type Review @entity(immutable: true) {
   createdAt: BigInt!
   course: Course!
   to: User! # Reviewed user
+  from: User!
   rating: BigInt
   cid: String
   description: ReviewDescription

@@ -77,12 +77,18 @@ export function getOrCreateTransaction(id: BigInt, blockTimestamp: BigInt = ZERO
   return transaction;
 }
 
-export function getOrCreateReview(id: BigInt, serviceId: BigInt, toId: BigInt): Review {
+export function getOrCreateReview(
+  id: BigInt,
+  courseId: BigInt,
+  toId: BigInt,
+  fromId: BigInt,
+): Review {
   let review = Review.load(id.toString());
   if (!review) {
     review = new Review(id.toString());
+    review.course = getOrCreateCourse(courseId).id;
     review.to = getOrCreateUser(toId).id;
-    review.course = getOrCreateCourse(serviceId).id;
+    review.from = getOrCreateUser(fromId).id;
     review.createdAt = ZERO;
     review.save();
   }
