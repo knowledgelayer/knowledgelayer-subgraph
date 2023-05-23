@@ -58,6 +58,8 @@ export function getOrCreateCourse(id: BigInt): Course {
     course.createdAt = ZERO;
     course.updatedAt = ZERO;
     course.token = getOrCreateToken(ZERO_ADDRESS).id;
+    course.rating = ZERO_BIGDEC;
+    course.numReviews = ZERO;
     course.save();
   }
   return course;
