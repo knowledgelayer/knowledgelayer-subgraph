@@ -6,11 +6,11 @@ features:
 dataSources:
   - kind: ethereum/contract
     name: KnowledgeLayerID
-    network: localhost
+    network: mumbai
     source:
       abi: KnowledgeLayerID
-      startBlock: 0
-      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+      address: "0xaae449d58283EFa9F6b6490a9c0Aa9Cd65C2DC73"
+      startBlock: 35384710
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -38,11 +38,11 @@ dataSources:
       file: ./src/mappings/knowledgelayer-id.ts
   - kind: ethereum/contract
     name: KnowledgeLayerPlatformID
-    network: localhost
+    network: mumbai
     source:
       abi: KnowledgeLayerPlatformID
-      startBlock: 0
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+      address: "0xf4c9B3E1c0A2C1259dB0c9D6D3EAA6404E61D550"
+      startBlock: 35384710
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -70,11 +70,11 @@ dataSources:
       file: ./src/mappings/knowledgelayer-platform-id.ts
   - kind: ethereum/contract
     name: KnowledgeLayerCourse
-    network: localhost
+    network: mumbai
     source:
       abi: KnowledgeLayerCourse
-      startBlock: 0
-      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+      address: "0x28B43838B4CE32202f61f29A6C755B98D6abc2E8"
+      startBlock: 35384710
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -93,11 +93,11 @@ dataSources:
       file: ./src/mappings/knowledgelayer-course.ts
   - kind: ethereum/contract
     name: KnowledgeLayerEscrow
-    network: localhost
+    network: mumbai
     source:
       abi: KnowledgeLayerEscrow
-      startBlock: 0
-      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+      address: "0xb79a7AAB2663fc711258fb39df823b93A8463982"
+      startBlock: 35384710
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -132,7 +132,7 @@ templates:
       abis:
         - name: KnowledgeLayerID
           file: ./abis/KnowledgeLayerID.json
-    network: localhost
+    network: mumbai
   - name: PlatformData
     kind: file/ipfs
     mapping:
@@ -145,7 +145,7 @@ templates:
       abis:
         - name: KnowledgeLayerPlatformID
           file: ./abis/KnowledgeLayerPlatformID.json
-    network: localhost
+    network: mumbai
   - name: CourseData
     kind: file/ipfs
     mapping:
@@ -161,4 +161,4 @@ templates:
       abis:
         - name: KnowledgeLayerCourse
           file: ./abis/KnowledgeLayerCourse.json
-    network: localhost
+    network: mumbai

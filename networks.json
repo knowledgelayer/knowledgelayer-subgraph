@@ -19,20 +19,20 @@
   },
   "mumbai": {
     "KnowledgeLayerID": {
-      "address": "0x211773b801C8d9e90539DdBD3f602C667DB6efF8",
-      "startBlock": 0
+      "address": "0xaae449d58283EFa9F6b6490a9c0Aa9Cd65C2DC73",
+      "startBlock": 35384710
     },
     "KnowledgeLayerPlatformID": {
-      "address": "0x2c08b3D32B1522B8B55523F67dee446fa9e7C743",
-      "startBlock": 0
+      "address": "0xf4c9B3E1c0A2C1259dB0c9D6D3EAA6404E61D550",
+      "startBlock": 35384710
     },
     "KnowledgeLayerCourse": {
-      "address": "0xa527eE0B0A240A2b6d474B570880ebcb09217E5b",
-      "startBlock": 0
+      "address": "0x28B43838B4CE32202f61f29A6C755B98D6abc2E8",
+      "startBlock": 35384710
     },
     "KnowledgeLayerEscrow": {
-      "address": "0x37220E2F35e545Ac75D3372F08f409bcA4f08Be7",
-      "startBlock": 0
+      "address": "0xb79a7AAB2663fc711258fb39df823b93A8463982",
+      "startBlock": 35384710
     }
   }
 }
