@@ -23,6 +23,7 @@ export function handleCourseCreated(event: CourseCreated): void {
   const context = new DataSourceContext();
   context.setBigInt("courseId", event.params.courseId);
   context.setString("id", dataId);
+  context.setString("timestamp", event.block.timestamp.toString());
   CourseData.createWithContext(event.params.dataUri, context);
 
   course.description = dataId;
@@ -42,6 +43,7 @@ export function handleCourseUpdated(event: CourseUpdated): void {
   const context = new DataSourceContext();
   context.setBigInt("courseId", courseId);
   context.setString("id", dataId);
+  context.setString("timestamp", event.block.timestamp.toString());
 
   if (oldCid) {
     store.remove("CourseDescription", oldCid);

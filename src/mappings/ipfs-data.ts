@@ -81,6 +81,7 @@ export function handleCourseData(content: Bytes): void {
   const context = dataSource.context();
   const courseId = context.getBigInt("courseId");
   const id = context.getString("id");
+  const timestamp = context.getString("timestamp");
 
   let description = new CourseDescription(id);
   description.course = courseId.toString();
@@ -107,7 +108,7 @@ export function handleCourseData(content: Bytes): void {
 
   if (lessons) {
     for (let i = 0; i < lessons.length; i++) {
-      const lessonId = courseId.toString() + "-" + i.toString();
+      const lessonId = courseId.toString() + "-" + i.toString() + timestamp;
       const lessonData = lessons[i].toObject();
 
       const lesson = new Lesson(lessonId);
