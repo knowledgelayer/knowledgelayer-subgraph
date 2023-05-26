@@ -9,8 +9,8 @@ dataSources:
     network: mumbai
     source:
       abi: KnowledgeLayerID
-      address: "0xaae449d58283EFa9F6b6490a9c0Aa9Cd65C2DC73"
-      startBlock: 35384710
+      startBlock: 36073428
+      address: "0xf63ceb052a1BBe8039b4222e18e3Dff144112577"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -41,8 +41,8 @@ dataSources:
     network: mumbai
     source:
       abi: KnowledgeLayerPlatformID
-      address: "0xf4c9B3E1c0A2C1259dB0c9D6D3EAA6404E61D550"
-      startBlock: 35384710
+      startBlock: 36073428
+      address: "0x630DA51087e91465C86B0E44bea1de7Ff9e6205e"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -73,8 +73,8 @@ dataSources:
     network: mumbai
     source:
       abi: KnowledgeLayerCourse
-      address: "0x28B43838B4CE32202f61f29A6C755B98D6abc2E8"
-      startBlock: 35384710
+      startBlock: 36073428
+      address: "0x2AEf93e6BA305fc4c31e1Ae715892f22B7A3Ed8E"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -96,8 +96,8 @@ dataSources:
     network: mumbai
     source:
       abi: KnowledgeLayerEscrow
-      address: "0xb79a7AAB2663fc711258fb39df823b93A8463982"
-      startBlock: 35384710
+      startBlock: 36073428
+      address: "0x481b5A3Fd39a8Ba8FC81683d3fAE938B76c8e60f"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -123,8 +123,8 @@ dataSources:
     network: mumbai
     source:
       abi: KnowledgeLayerReview
-      startBlock: 0
-      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+      startBlock: 36073428
+      address: "0x222a23a15b6c3c507B9D4B8BA94306a2e973b94A"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -195,4 +195,4 @@ templates:
       abis:
         - name: KnowledgeLayerReview
           file: ./abis/KnowledgeLayerReview.json
-    network: localhost
+    network: mumbai
