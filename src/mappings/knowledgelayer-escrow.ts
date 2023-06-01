@@ -5,13 +5,19 @@ import {
   getOrCreateTransaction,
   getOrCreateUser,
   getOrCreatePayment,
+  getOrCreateOriginPlatformFee,
+  getOrCreatePlatformGain,
+  getOrCreateBuyPlatformFee,
+  getOrCreatePlatform,
 } from "../getters";
 import {
+  BuyFeeReleased,
+  OriginFeeReleased,
   Payment,
   ProtocolFeeUpdated,
   TransactionCreated,
 } from "../../generated/KnowledgeLayerEscrow/KnowledgeLayerEscrow";
-import { generateUniqueId } from "../utils";
+import { concatenate, generateUniqueId } from "../utils";
 
 enum PaymentType {
   Release,
@@ -26,6 +32,7 @@ export function handleTransactionCreated(event: TransactionCreated): void {
   transaction.token = getOrCreateToken(event.params.token).id;
   transaction.amount = event.params.amount;
   transaction.course = Course.load(event.params.courseId.toString())!.id;
+  transaction.platform = getOrCreatePlatform(event.params.buyPlatformId).id;
   transaction.protocolFee = event.params.protocolFee;
   transaction.originFee = event.params.originFee;
   transaction.buyFee = event.params.buyFee;
@@ -58,4 +65,52 @@ export function handlePayment(event: Payment): void {
 
   payment.transactionHash = event.transaction.hash.toHex();
   payment.save();
+}
+
+export function handleOriginFeeReleased(event: OriginFeeReleased): void {
+  const feePaymentId = concatenate(event.transaction.hash.toHex(), event.logIndex.toString());
+  const originFeePayment = getOrCreateOriginPlatformFee(feePaymentId);
+  const token = event.params.token;
+  originFeePayment.platform = event.params.platformId.toString();
+  originFeePayment.course = event.params.courseId.toString();
+  originFeePayment.token = getOrCreateToken(token).id;
+  originFeePayment.amount = event.params.amount;
+
+  originFeePayment.createdAt = event.block.timestamp;
+  originFeePayment.save();
+
+  const platformGainId = concatenate(
+    event.params.platformId.toString(),
+    event.params.token.toHex(),
+  );
+  const platformGain = getOrCreatePlatformGain(platformGainId);
+  platformGain.platform = event.params.platformId.toString();
+  platformGain.token = getOrCreateToken(token).id;
+  platformGain.totalOriginFeeGain = platformGain.totalOriginFeeGain.plus(event.params.amount);
+
+  platformGain.save();
+}
+
+export function handleBuyFeeReleased(event: BuyFeeReleased): void {
+  const feePaymentId = concatenate(event.transaction.hash.toHex(), event.logIndex.toString());
+  const buyFeePayment = getOrCreateBuyPlatformFee(feePaymentId);
+  const token = event.params.token;
+  buyFeePayment.platform = event.params.platformId.toString();
+  buyFeePayment.course = event.params.courseId.toString();
+  buyFeePayment.token = getOrCreateToken(token).id;
+  buyFeePayment.amount = event.params.amount;
+
+  buyFeePayment.createdAt = event.block.timestamp;
+  buyFeePayment.save();
+
+  const platformGainId = concatenate(
+    event.params.platformId.toString(),
+    event.params.token.toHex(),
+  );
+  const platformGain = getOrCreatePlatformGain(platformGainId);
+  platformGain.platform = event.params.platformId.toString();
+  platformGain.token = getOrCreateToken(token).id;
+  platformGain.totalBuyFeeGain = platformGain.totalBuyFeeGain.plus(event.params.amount);
+
+  platformGain.save();
 }

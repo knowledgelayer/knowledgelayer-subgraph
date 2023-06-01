@@ -111,12 +111,16 @@ dataSources:
         - name: KnowledgeLayerEscrow
           file: ./abis/KnowledgeLayerEscrow.json
       eventHandlers:
-        - event: TransactionCreated(uint256,uint256,uint256,address,uint256,uint256,uint16,uint16,uint16)
+        - event: TransactionCreated(uint256,uint256,uint256,address,uint256,uint256,uint256,uint16,uint16,uint16)
           handler: handleTransactionCreated
         - event: ProtocolFeeUpdated(uint16)
           handler: handleProtocolFeeUpdated
         - event: Payment(uint256,uint8)
           handler: handlePayment
+        - event: OriginFeeReleased(uint256,uint256,address,uint256)
+          handler: handleOriginFeeReleased
+        - event: BuyFeeReleased(uint256,uint256,address,uint256)
+          handler: handleBuyFeeReleased
       file: ./src/mappings/knowledgelayer-escrow.ts
   - kind: ethereum/contract
     name: KnowledgeLayerReview

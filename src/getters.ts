@@ -157,7 +157,7 @@ export function getOrCreateOriginPlatformFee(paymentId: string): FeePayment {
   let originFeePayment = FeePayment.load(paymentId);
   if (!originFeePayment) {
     originFeePayment = new FeePayment(paymentId);
-    originFeePayment.type = "OriginPlatform";
+    originFeePayment.type = "OriginFee";
     originFeePayment.amount = ZERO;
     originFeePayment.save();
   }
@@ -168,7 +168,7 @@ export function getOrCreateBuyPlatformFee(paymentId: string): FeePayment {
   let platformFeePayment = FeePayment.load(paymentId);
   if (!platformFeePayment) {
     platformFeePayment = new FeePayment(paymentId);
-    platformFeePayment.type = "BuyPlatform";
+    platformFeePayment.type = "BuyFee";
     platformFeePayment.amount = ZERO;
     platformFeePayment.save();
   }
