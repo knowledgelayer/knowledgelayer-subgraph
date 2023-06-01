@@ -123,6 +123,7 @@ type Transaction @entity {
   token: Token!
   amount: BigInt!
   course: Course
+  platform: Platform # Platform where the transaction was created
   protocolFee: Int! # Fee paid to the protocol
   originFee: Int! # Fee paid to the platform where the course was created
   buyFee: Int! # Fee paid to the platform where the course was being bought
@@ -138,8 +139,8 @@ type Payment @entity(immutable: true) {
 }
 
 enum FeeType {
-  OriginPlatform
-  BuyPlatform
+  OriginFee
+  BuyFee
 }
 
 type FeePayment @entity(immutable: true) {
