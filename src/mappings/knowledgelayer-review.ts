@@ -4,6 +4,7 @@ import { Mint } from "../../generated/KnowledgeLayerReview/KnowledgeLayerReview"
 import { getOrCreateReview } from "../getters";
 import { ONE } from "../constants";
 import { ReviewData } from "../../generated/templates";
+import { concatenate } from "../utils";
 
 export function handleMint(event: Mint): void {
   const review = getOrCreateReview(
@@ -39,7 +40,7 @@ export function handleMint(event: Mint): void {
   course.save();
 
   const cid = event.params.dataUri;
-  const dataId = cid + "-" + event.block.timestamp.toString();
+  const dataId = concatenate(cid, event.block.timestamp.toString());
   const context = new DataSourceContext();
   context.setString("reviewId", review.id);
   context.setString("id", dataId);

@@ -50,7 +50,7 @@ export function handleProtocolFeeUpdated(event: ProtocolFeeUpdated): void {
 }
 
 export function handlePayment(event: Payment): void {
-  const paymentId = generateUniqueId(event.transaction.hash.toHex(), event.logIndex.toString());
+  const paymentId = generateUniqueId(event);
   const payment = getOrCreatePayment(paymentId);
 
   payment.createdAt = event.block.timestamp;
@@ -68,7 +68,7 @@ export function handlePayment(event: Payment): void {
 }
 
 export function handleOriginFeeReleased(event: OriginFeeReleased): void {
-  const feePaymentId = concatenate(event.transaction.hash.toHex(), event.logIndex.toString());
+  const feePaymentId = generateUniqueId(event);
   const originFeePayment = getOrCreateOriginPlatformFee(feePaymentId);
   const token = event.params.token;
   originFeePayment.platform = event.params.platformId.toString();
@@ -92,7 +92,7 @@ export function handleOriginFeeReleased(event: OriginFeeReleased): void {
 }
 
 export function handleBuyFeeReleased(event: BuyFeeReleased): void {
-  const feePaymentId = concatenate(event.transaction.hash.toHex(), event.logIndex.toString());
+  const feePaymentId = generateUniqueId(event);
   const buyFeePayment = getOrCreateBuyPlatformFee(feePaymentId);
   const token = event.params.token;
   buyFeePayment.platform = event.params.platformId.toString();

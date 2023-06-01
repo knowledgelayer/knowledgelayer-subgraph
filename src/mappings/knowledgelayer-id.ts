@@ -10,12 +10,13 @@ import {
   Transfer,
 } from "../../generated/KnowledgeLayerID/KnowledgeLayerID";
 import { getOrCreatePlatform, getOrCreateProtocol, getOrCreateUser } from "../getters";
+import { concatenate } from "../utils";
 
 export function handleCidUpdated(event: CidUpdated): void {
   const userId = event.params.profileId;
   const user = getOrCreateUser(userId);
   const newCid = event.params.newCid;
-  const dataId = newCid + "-" + event.block.timestamp.toString();
+  const dataId = concatenate(newCid, event.block.timestamp.toString());
 
   user.updatedAt = event.block.timestamp;
   user.cid = newCid;

@@ -15,6 +15,7 @@ import {
   Lesson,
   ReviewDescription,
 } from "../../generated/schema";
+import { concatenate } from "../utils";
 
 export function handleUserData(content: Bytes): void {
   const checkJson = json.try_fromBytes(content);
@@ -108,7 +109,7 @@ export function handleCourseData(content: Bytes): void {
 
   if (lessons) {
     for (let i = 0; i < lessons.length; i++) {
-      const lessonId = courseId.toString() + "-" + i.toString() + timestamp;
+      const lessonId = concatenate(courseId.toString(), i.toString()) + "-" + timestamp;
       const lessonData = lessons[i].toObject();
 
       const lesson = new Lesson(lessonId);

@@ -10,13 +10,14 @@ import {
   SignerUpdated,
 } from "../../generated/KnowledgeLayerPlatformID/KnowledgeLayerPlatformID";
 import { getOrCreatePlatform, getOrCreateProtocol } from "../getters";
+import { concatenate } from "../utils";
 
 export function handleCidUpdated(event: CidUpdated): void {
   const platformId = event.params.platformId;
   const platform = getOrCreatePlatform(platformId);
   const oldCid = platform.cid;
   const newCid = event.params.newCid;
-  const dataId = newCid + "-" + event.block.timestamp.toString();
+  const dataId = concatenate(newCid, event.block.timestamp.toString());
 
   platform.cid = newCid;
   platform.updatedAt = event.block.timestamp;

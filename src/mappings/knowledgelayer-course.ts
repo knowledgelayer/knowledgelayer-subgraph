@@ -5,6 +5,7 @@ import {
   CourseUpdated,
 } from "../../generated/KnowledgeLayerCourse/KnowledgeLayerCourse";
 import { getOrCreateCourse, getOrCreatePlatform, getOrCreateUser } from "../getters";
+import { concatenate } from "../utils";
 
 export function handleCourseCreated(event: CourseCreated): void {
   const course = getOrCreateCourse(event.params.courseId);
@@ -17,7 +18,7 @@ export function handleCourseCreated(event: CourseCreated): void {
   const platform = getOrCreatePlatform(event.params.platformId);
   course.platform = platform.id;
 
-  const dataId = event.params.dataUri + "-" + event.block.timestamp.toString();
+  const dataId = concatenate(event.params.dataUri, event.block.timestamp.toString());
   course.cid = event.params.dataUri;
 
   const context = new DataSourceContext();
@@ -37,7 +38,7 @@ export function handleCourseUpdated(event: CourseUpdated): void {
 
   const oldCid = course.cid;
   const newCid = event.params.dataUri;
-  const dataId = newCid + "-" + event.block.timestamp.toString();
+  const dataId = concatenate(newCid, event.block.timestamp.toString());
   course.cid = newCid;
 
   const context = new DataSourceContext();
